@@ -247,6 +247,48 @@ button:active {
   50% { opacity: 0.6; }
 }
 
+.river-path {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.river-path.sm {
+  height: 50px;
+}
+
+.river-path.lg {
+  height: 70px;
+}
+
+.river-path-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.river-path-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding: 0 8px;
+}
+
+.path-label {
+  font-size: 0.7rem;
+  color: var(--text-soft);
+  max-width: 45%;
+  line-height: 1.2;
+}
+
+.path-label.source {
+  text-align: left;
+}
+
+.path-label.destination {
+  text-align: right;
+}
+
 .detail-link {
   color: var(--accent);
   font-weight: 600;

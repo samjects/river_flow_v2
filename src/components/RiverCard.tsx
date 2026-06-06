@@ -3,6 +3,7 @@ import { X, ArrowRight } from 'lucide-react'
 import type { RiverDefinition } from '../types/hydro'
 import { useRiverLevel } from '../hooks/useRiverLevel'
 import { FluidLevel } from './FluidLevel'
+import { RiverPath } from './RiverPath'
 
 interface RiverCardProps {
   river: RiverDefinition
@@ -29,6 +30,7 @@ export function RiverCard({ river, location, onRemove }: RiverCardProps) {
         <p>Loading latest measurement...</p>
       ) : (
         <>
+          <RiverPath riverId={river.id} origin={river.origin} size="sm" />
           <FluidLevel
             value={data.value}
             min={river.minLevel}

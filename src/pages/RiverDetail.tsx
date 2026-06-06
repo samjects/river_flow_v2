@@ -5,6 +5,7 @@ import { useHydroStations, getCantons } from '../hooks/useHydroStations'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useRiverLevel } from '../hooks/useRiverLevel'
 import { FluidLevel } from '../components/FluidLevel'
+import { RiverPath } from '../components/RiverPath'
 import { TemperatureGauge } from '../components/TemperatureGauge'
 
 export function RiverDetailPage() {
@@ -51,6 +52,7 @@ export function RiverDetailPage() {
         <h2>{river.name}</h2>
         {reading ? (
           <>
+            <RiverPath riverId={river.id} origin={river.origin} size="lg" />
             <FluidLevel
               value={reading.value}
               min={river.minLevel}
