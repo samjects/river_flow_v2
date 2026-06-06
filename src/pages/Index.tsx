@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Plus } from 'lucide-react'
 import { ALL_RIVERS, DEFAULT_DASHBOARD_RIVERS } from '../data/rivers'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import type { RiverId } from '../types/hydro'
@@ -50,6 +51,7 @@ export function IndexPage() {
             </select>
           </label>
           <button type="button" onClick={addRiver}>
+            <Plus size={16} />
             Add
           </button>
         </div>

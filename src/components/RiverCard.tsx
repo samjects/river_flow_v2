@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { X, ArrowRight } from 'lucide-react'
 import type { RiverDefinition } from '../types/hydro'
 import { useRiverLevel } from '../hooks/useRiverLevel'
 import { FluidLevel } from './FluidLevel'
@@ -20,7 +21,7 @@ export function RiverCard({ river, location, onRemove }: RiverCardProps) {
           <h2>{river.name}</h2>
         </div>
         <button type="button" className="icon-btn" onClick={() => onRemove(river.id)}>
-          x
+          <X size={16} />
         </button>
       </header>
 
@@ -45,6 +46,7 @@ export function RiverCard({ river, location, onRemove }: RiverCardProps) {
 
       <Link to={`/river/${river.id}`} className="detail-link">
         Open detail
+        <ArrowRight size={16} />
       </Link>
     </article>
   )

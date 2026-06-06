@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { LayoutDashboard, Settings } from 'lucide-react'
 
 export function Header() {
   return (
@@ -9,12 +10,14 @@ export function Header() {
       </div>
       <nav className="header-nav">
         <NavLink to="/" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+          <LayoutDashboard size={16} />
           Dashboard
         </NavLink>
         <NavLink
           to="/settings"
           className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
         >
+          <Settings size={16} />
           Settings
         </NavLink>
       </nav>

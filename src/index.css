@@ -86,6 +86,9 @@ main {
   padding: 8px 16px;
   text-decoration: none;
   transition: all 180ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-link:hover {
@@ -145,6 +148,9 @@ button {
   cursor: pointer;
   font-weight: 500;
   transition: all 150ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 button:hover {
@@ -166,6 +172,9 @@ button:active {
   padding: 0;
   width: 28px;
   font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon-btn:hover {
@@ -242,6 +251,15 @@ button:active {
   color: var(--accent);
   font-weight: 600;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  transition: gap 180ms ease;
+}
+
+.detail-link:hover {
+  gap: 8px;
 }
 
 .card-footer,
