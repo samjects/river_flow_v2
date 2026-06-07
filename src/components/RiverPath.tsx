@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useRiverStations } from '../hooks/useRiverStations'
 import type { RiverId } from '../types/hydro'
 
@@ -17,6 +18,7 @@ const RIVER_DESTINATIONS: Record<RiverId, string> = {
 }
 
 export function RiverPath({ riverId, origin, size = 'sm' }: RiverPathProps) {
+  const [hoveredStationId, setHoveredStationId] = useState<string | null>(null)
   const destination = RIVER_DESTINATIONS[riverId]
   const height = size === 'sm' ? 50 : 70
   const { data: stations = [] } = useRiverStations(riverId)
@@ -114,10 +116,35 @@ export function RiverPath({ riverId, origin, size = 'sm' }: RiverPathProps) {
         {/* Station markers along the path */}
         {stations.map((station) => {
           const x = 10 + station.position * 280
+          const isHovered = hoveredStationId === station.id
           return (
             <g key={station.id} className="station-marker">
-              <circle cx={x} cy={height / 2} r="3" fill="hsl(195 75% 55%)" opacity="0.8" />
-              <title>{station.name}</title>
+              <circle
+                cx={x}
+                cy={height / 2}
+                r="3"
+                fill="hsl(195 75% 55%)"
+                opacity={isHovered ? '1' : '0.8'}
+                onMouseEnter={() => setHoveredStationId(station.id)}
+                onMouseLeave={() => setHoveredStationId(null)}
+                style={{ cursor: 'pointer' }}
+              />
+              {isHovered && (
+                <>
+                  <circle cx={x} cy={height / 2} r="5" fill="none" stroke="hsl(195 75% 55%)" strokeWidth="1" opacity="0.5" />
+                  <text
+                    x={x}
+                    y={height / 2 - 12}
+                    textAnchor="middle"
+                    fontSize="11"
+                    fill="hsl(195 75% 45%)"
+                    fontWeight="600"
+                    pointerEvents="none"
+                  >
+                    {station.name}
+                  </text>
+                </>
+              )}
             </g>
           )
         })}

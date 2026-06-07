@@ -45,7 +45,8 @@ function getRiverName(riverId: RiverId): string {
 }
 
 // Map of station names to their approximate positions along the river (0=source, 1=destination)
-const STATION_POSITIONS: Record<string, Record<string, number>> = {
+// Keys are riverId values (English names)
+const STATION_POSITIONS: Record<RiverId, Record<string, number>> = {
   rhine: {
     'domat/ems': 0.1,
     'rheinfelden': 0.3,
@@ -86,13 +87,14 @@ const STATION_POSITIONS: Record<string, Record<string, number>> = {
   },
 }
 
-async function fetchStationsFromEndpoint(url: string, riverName: string): Promise<RiverStation[]> {
+async function fetchStationsFromEndpoint(url: string, riverId: RiverId): Promise<RiverStation[]> {
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Station endpoint failed: ${url}`)
   }
   const payload = (await response.json()) as unknown
   const records = extractArray(payload)
+  const riverName = getRiverName(riverId)
 
   const stations: RiverStation[] = []
 
@@ -110,7 +112,7 @@ async function fetchStationsFromEndpoint(url: string, riverName: string): Promis
     }
 
     const positionKey = normalizeText(name)
-    const positions = STATION_POSITIONS[normalizeText(riverName)]
+    const positions = STATION_POSITIONS[riverId]
     const position = positions ? positions[positionKey] : undefined
 
     // Only include stations with known positions (Swiss territory)
@@ -123,14 +125,12 @@ async function fetchStationsFromEndpoint(url: string, riverName: string): Promis
 }
 
 export function useRiverStations(riverId: RiverId) {
-  const riverName = getRiverName(riverId)
-
   return useQuery({
     queryKey: ['river-stations', riverId],
     queryFn: async () => {
       for (const endpoint of STATION_ENDPOINTS) {
         try {
-          return await fetchStationsFromEndpoint(endpoint, riverName)
+          return await fetchStationsFromEndpoint(endpoint, riverId)
         } catch {
           // Try next source
         }
