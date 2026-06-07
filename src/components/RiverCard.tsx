@@ -12,7 +12,7 @@ interface RiverCardProps {
 }
 
 export function RiverCard({ river, location, onRemove }: RiverCardProps) {
-  const { data, isLoading } = useRiverLevel(river.id, location)
+  const { data, isLoading } = useRiverLevel(river.id, location, river.defaultStationId)
 
   return (
     <article className="river-card card-glass hover-scale animate-enter">

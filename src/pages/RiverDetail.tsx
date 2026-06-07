@@ -1,7 +1,6 @@
-import { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getRiverById } from '../data/rivers'
-import { useHydroStations, getCantons } from '../hooks/useHydroStations'
+import { useHydroStations } from '../hooks/useHydroStations'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useRiverLevel } from '../hooks/useRiverLevel'
 import { FluidLevel } from '../components/FluidLevel'
@@ -22,28 +21,18 @@ export function RiverDetailPage() {
   }
 
   const [location] = useLocalStorage<string>('sr_location', 'Zurich')
-  const [selectedCanton, setSelectedCanton] = useLocalStorage<string | undefined>(
-    `sr_canton_${river.id}`,
-    undefined,
-  )
   const [selectedStation, setSelectedStation] = useLocalStorage<string | undefined>(
     `sr_station_${river.id}`,
-    undefined,
+    river.defaultStationId,
   )
 
   const stationsQuery = useHydroStations(river.id)
   const stations = stationsQuery.data ?? []
-  const cantons = useMemo(() => getCantons(stations), [stations])
 
-  const visibleStations = useMemo(() => {
-    if (!selectedCanton) {
-      return stations
-    }
-    return stations.filter((station) => station.canton === selectedCanton)
-  }, [selectedCanton, stations])
-
-  const readingQuery = useRiverLevel(river.id, location, selectedStation)
+  const readingQuery = useRiverLevel(river.id, location, selectedStation ?? river.defaultStationId)
   const reading = readingQuery.data
+
+  const activeStation = stations.find((s) => s.id === (selectedStation ?? river.defaultStationId))
 
   return (
     <section className="detail-layout card-glass animate-enter">
@@ -81,28 +70,13 @@ export function RiverDetailPage() {
 
         <div className="selectors">
           <label>
-            Canton
-            <select
-              value={selectedCanton ?? ''}
-              onChange={(event) => setSelectedCanton(event.target.value || undefined)}
-            >
-              <option value="">All</option>
-              {cantons.map((canton) => (
-                <option key={canton} value={canton}>
-                  {canton}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
             Station
+            {activeStation && <span className="station-badge">{activeStation.name}</span>}
             <select
-              value={selectedStation ?? ''}
-              onChange={(event) => setSelectedStation(event.target.value || undefined)}
+              value={selectedStation ?? river.defaultStationId ?? ''}
+              onChange={(e) => setSelectedStation(e.target.value || river.defaultStationId)}
             >
-              <option value="">Auto</option>
-              {visibleStations.map((station) => (
+              {stations.map((station) => (
                 <option key={station.id} value={station.id}>
                   {station.name}
                 </option>

@@ -9,6 +9,7 @@ export const ALL_RIVERS: RiverDefinition[] = [
     maxLevel: 6.4,
     recordLevel: 8.2,
     stationHints: ['rhein', 'rhine', 'basel', 'rheinfelden'],
+    defaultStationId: '2143', // Rekingen
   },
   {
     id: 'aare',
@@ -18,6 +19,7 @@ export const ALL_RIVERS: RiverDefinition[] = [
     maxLevel: 5.1,
     recordLevel: 6.8,
     stationHints: ['aare', 'bern', 'brugg'],
+    defaultStationId: '2135', // Bern, Schönau
   },
   {
     id: 'rhone',
@@ -36,6 +38,7 @@ export const ALL_RIVERS: RiverDefinition[] = [
     maxLevel: 4.2,
     recordLevel: 5.5,
     stationHints: ['reuss', 'luzern', 'uri'],
+    defaultStationId: '2152', // Luzern, Geissmattbrücke
   },
   {
     id: 'limmat',
@@ -45,6 +48,7 @@ export const ALL_RIVERS: RiverDefinition[] = [
     maxLevel: 3.6,
     recordLevel: 4.7,
     stationHints: ['limmat', 'zuerich', 'zurich', 'baden'],
+    defaultStationId: '2243', // Baden, Limmatpromenade
   },
   {
     id: 'ticino',
@@ -54,6 +58,7 @@ export const ALL_RIVERS: RiverDefinition[] = [
     maxLevel: 4.8,
     recordLevel: 6.1,
     stationHints: ['ticino', 'bellinzona', 'locarno'],
+    defaultStationId: '2020', // Bellinzona
   },
 ]
 

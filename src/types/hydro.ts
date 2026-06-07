@@ -14,6 +14,7 @@ export interface RiverDefinition {
   maxLevel: number
   recordLevel: number
   stationHints: string[]
+  defaultStationId?: string
 }
 
 export interface HydroStation {

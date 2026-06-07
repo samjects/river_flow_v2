@@ -632,6 +632,22 @@ button:active {
   gap: 12px;
 }
 
+.selectors label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.station-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.02em;
+}
+
 .hint {
   color: var(--text-soft);
   font-size: 0.9rem;
