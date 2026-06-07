@@ -1,3 +1,4 @@
+import { useRiverStations } from '../hooks/useRiverStations'
 import type { RiverId } from '../types/hydro'
 
 interface RiverPathProps {
@@ -18,6 +19,7 @@ const RIVER_DESTINATIONS: Record<RiverId, string> = {
 export function RiverPath({ riverId, origin, size = 'sm' }: RiverPathProps) {
   const destination = RIVER_DESTINATIONS[riverId]
   const height = size === 'sm' ? 50 : 70
+  const { data: stations = [] } = useRiverStations(riverId)
 
   return (
     <div className={`river-path ${size}`}>
@@ -108,6 +110,17 @@ export function RiverPath({ riverId, origin, size = 'sm' }: RiverPathProps) {
         {/* Destination marker */}
         <circle cx="290" cy={height / 2} r="4" fill="hsl(185 70% 48%)" />
         <circle cx="290" cy={height / 2} r="6" fill="none" stroke="hsl(185 70% 48%)" strokeWidth="1" opacity="0.5" />
+
+        {/* Station markers along the path */}
+        {stations.map((station) => {
+          const x = 10 + station.position * 280
+          return (
+            <g key={station.id} className="station-marker">
+              <circle cx={x} cy={height / 2} r="3" fill="hsl(195 75% 55%)" opacity="0.8" />
+              <title>{station.name}</title>
+            </g>
+          )
+        })}
       </svg>
 
       <div className="river-path-labels">
